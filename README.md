@@ -63,6 +63,7 @@ This repo is a **catalog**. Choose the integration style for your tool.
 |Scripts en templates	| Bruikbaar	        | Opnemen in je testproject            | 
 
 Maak in je project een structuur zoals deze:
+```
 mijn-testproject/
 ├── .continue/
 │   └── rules/
@@ -77,10 +78,11 @@ mijn-testproject/
 │   └── flaky-test-investigation/
 ├── tests/
 └── package.json
-
+```
 De map ai-skills/ is hierbij een eigen keuze om kennis te organiseren. Continue voert deze bestanden niet automatisch uit als skills.
 1. Maak van de instructies Continue Rules
 Bijvoorbeeld .continue/rules/playwright.md:
+```
 ---
 name: Playwright test automation
 globs: "tests/**/*.ts"
@@ -94,6 +96,7 @@ globs: "tests/**/*.ts"
 - Keep tests independent.
 - Follow the Page Object Model where appropriate.
 - Investigate flaky tests before adding retries.
+```
 
 2. Gebruik de skills in je prompts
 Je kunt bijvoorbeeld aan Continue vragen:
@@ -101,7 +104,7 @@ Lees ai-skills/playwright-e2e-testing/SKILL.md en gebruik de beschreven werkwijz
 
 Met een geschikt lokaal model kan Continue in Agent Mode vervolgens bestanden lezen, testen schrijven en eventueel uitvoeren.
 3. Koppel je lokale LLM 
-
+```
 name: Local QA Automation
 version: 1.0.0
 schema: v1
@@ -115,10 +118,7 @@ models:
       - chat
       - edit
       - apply
-
-
-
-
+```
 
 ### Setup guides
 
