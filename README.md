@@ -55,6 +55,7 @@ This repo is a **catalog**. Choose the integration style for your tool.
 - **GitHub Copilot (customizations)**: use `.github/agents`, `.github/instructions`, and `.github/skills`.
 - **Claude/Cursor/OpenCode/Windsurf/etc.**: copy the same content into the tool's repo/workspace rules system, keeping the same structure and naming so your team shares a consistent vocabulary.
 - **Continue/VSCode**:
+- 
 |Onderdeel            |	Ondersteuning	    | Aanpak                               |
 |---------------------|-------------------|--------------------------------------|
 |Instructions	        | Direct toepasbaar	| Converteren naar Continue Rules      |
@@ -104,6 +105,16 @@ Lees ai-skills/playwright-e2e-testing/SKILL.md en gebruik de beschreven werkwijz
 
 Met een geschikt lokaal model kan Continue in Agent Mode vervolgens bestanden lezen, testen schrijven en eventueel uitvoeren.
 3. Koppel je lokale LLM 
+
+
+**Stap 1. Start Qwen in LM Studio**
+1. Open LM Studio en laad je Qwen-model.
+2. Ga naar het tabblad Developer.
+3. Start de lokale API-server.
+4. Controleer of deze bereikbaar is op http://localhost:1234/v1.
+   
+**Stap 2. Verbind Continue met LM Studio**
+Open in VS Code de config.yaml van Continue en voeg bijvoorbeeld toe:
 ```
 name: Local QA Automation
 version: 1.0.0
@@ -119,6 +130,31 @@ models:
       - edit
       - apply
 ```
+Vervang YOUR_QWEN_MODEL_ID door de exacte model-ID uit LM Studio. Continue heeft hiervoor een ingebouwde LM Studio-provider.
+
+**Stap 3. Voeg de testautomatiseringskennis toe**
+Je kunt de GitHub-repository bijvoorbeeld zo integreren:
+```
+test-project/
+├── .continue/
+│   └── rules/
+│       ├── qa-standards.md
+│       └── playwright-rules.md
+├── ai/
+│   ├── agents/
+│   ├── instructions/
+│   └── skills/
+├── tests/
+└── playwright.config.ts
+```
+De instructies zet je om naar Continue Rules. De skills en agents kun je als projectkennis gebruiken. Afhankelijk van je Continue-versie en configuratie moet je de relevante bestanden expliciet laten lezen.
+
+**Stap 4. Test je lokale QA-agent**
+Vraag bijvoorbeeld in Continue:
+Gebruik de QA-richtlijnen en Playwright-skills uit de map ai. Analyseer mijn bestaande testen op flaky tests, slechte locators en ontbrekende assertions. Stel verbeteringen voor.
+
+Met een geschikt Qwen-model kun je in Agent Mode ook projectbestanden laten aanpassen en testcommando's laten uitvoeren. De betrouwbaarheid hangt af van het model en de ondersteuning voor toolgebruik. 
+
 
 ### Setup guides
 
